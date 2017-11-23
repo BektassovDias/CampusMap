@@ -14,9 +14,10 @@ public class Options extends AppCompatActivity {
     Toolbar mToolbar;
     ListView mListView;
 
-    String[] countryNames = {"Australia", "Brazil", "China", "France", "Germany", "India", "Ireland", "Italy"
-            , "Mexico", "Poland", "Russia", "Spain", "US"};
-    int[] countryFlags = {R.drawable.flag_australia,
+    String[] countryNames = {"Australia", "Brazil", "China", "France", "Germany", "India", "Ireland", "Italy",
+            "Mexico", "Poland", "Russia", "Spain", "US"};
+    int[] countryFlags = {
+            R.drawable.flag_australia,
             R.drawable.flag_brazil,
             R.drawable.flag_china,
             R.drawable.flag_france,
@@ -40,10 +41,15 @@ public class Options extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent mIntent = new Intent(Options.this, MapsActivity.class);
+                /*Intent mIntent = new Intent(Options.this, MapsActivity.class);
                 mIntent.putExtra("countryName", countryNames[i]);
 //                mIntent.putExtra("countryFlag", countryFlags[i]);
-                startActivity(mIntent);
+                startActivity(mIntent);*/
+
+                Intent intent = new Intent();
+                intent.putExtra("countryName", countryNames[i]);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 

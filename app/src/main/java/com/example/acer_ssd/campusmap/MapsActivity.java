@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,6 +26,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Objects;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -35,11 +40,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -48,15 +53,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
         int id = item.getItemId();
 
         if (id == R.id.places) {
             Intent intent = new Intent(this, Options.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
         return super.onOptionsItemSelected(item);
+    }
+    //@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String product = data.getStringExtra("countryName");
+
+        if (product == null) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "null", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+       // Objects.equals(product, new String("Australia"))
+        if (product.equals("Australia")) {
+        //if (Objects.equals(product, new String("Australia"))){
+            sydney2.showInfoWindow();
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "no", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        if (product.equals("Brazil")) {
+            brisbane2.showInfoWindow();
+        }
+
     }
 
     /**
@@ -71,8 +104,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
 
         if (mMap!= null){
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
@@ -113,23 +144,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng brisbane = new LatLng(32.116470, 118.925518);
         sydney2 = mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Nanjing").snippet("This is snippet").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
         brisbane2 = mMap.addMarker(new MarkerOptions().position(brisbane).title("Marker in Brisbane").snippet("This is snippet").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
         //sydney2.showInfoWindow();
-
 /*        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
             mMap.setMyLocationEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.zoomIn());
         }*/
 
 
-    }
-    public void onResume() {
-        super.onResume();
-        Bundle mBundle = getIntent().getExtras();
-        if (mBundle != null) {
-          //  sydney2.isInfoWindowShown();
-            sydney2.showInfoWindow();
-        }
     }
 
 }
