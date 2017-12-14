@@ -14,22 +14,26 @@ public class Options extends AppCompatActivity {
     Toolbar mToolbar;
     ListView mListView;
 
-    String[] countryNames = {"Australia", "Brazil", "China", "France", "Germany", "India", "Ireland", "Italy",
-            "Mexico", "Poland", "Russia", "Spain", "US"};
+    String[] countryNames = {"Library", "Post Office", "North Stadium", "Theater", "Hospital", "Supermarket", "Third Canteen", "Taobao",
+            "East Stadium", "ATM", "China Mobile", "School Suguo", "Second Canteen", "Barbershop", "HotDog Bar", "First Canteen", "CS Building"};
     int[] countryFlags = {
-            R.drawable.flag_australia,
-            R.drawable.flag_brazil,
-            R.drawable.flag_china,
-            R.drawable.flag_france,
-            R.drawable.flag_germany,
-            R.drawable.flag_india,
-            R.drawable.flag_ireland,
-            R.drawable.flag_italy,
-            R.drawable.flag_maxico,
-            R.drawable.flag_poland,
-            R.drawable.flag_russia,
-            R.drawable.flag_spain,
-            R.drawable.flag_us};
+            R.drawable.place1,
+            R.drawable.place2,
+            R.drawable.place3,
+            R.drawable.place4,
+            R.drawable.place5,
+            R.drawable.place6,
+            R.drawable.place7,
+            R.drawable.place8,
+            R.drawable.place9,
+            R.drawable.place10,
+            R.drawable.place11,
+            R.drawable.place12,
+            R.drawable.place13,
+            R.drawable.place14,
+            R.drawable.place15,
+            R.drawable.place16,
+            R.drawable.place17};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +58,5 @@ public class Options extends AppCompatActivity {
         });
 
     }
-
-
-
 
 }
